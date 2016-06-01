@@ -1,7 +1,9 @@
 package com.school.hashbattle.hashbattle;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
 
 public class MainActivity extends AppCompatActivity {
@@ -11,8 +13,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //I feel like this is too simple, but my back stack seems to work properly.
-        //CDR
 
+    }
+
+    public void sendMessage(View view) {
+        Intent intent = new Intent(this, Battle.class);
+        startActivity(intent);
     }
 }

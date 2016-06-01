@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">HashBattle</string>
+    <string name="app_name">Hash Battle</string>
+    <string name="newGameButton">Start Battle!</string>
+    <string name="playerOneTagLabel">First HashTag</string>
+    <string name="playerTwoTagLabel">Second HashTag</string>
+    <string name="summaryText">What should fight?</string>
 </resources>

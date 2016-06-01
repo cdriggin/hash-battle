@@ -9,8 +9,51 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.school.hashbattle.hashbattle.MainActivity">
 
+
     <TextView
+        android:id="@+id/SummaryDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="@string/summaryText"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/playerOneTagLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/SummaryDesc"
+        android:layout_marginTop="50px"
+        android:text="@string/playerOneTagLabel" />
+
+    <EditText
+        android:id="@+id/playerOneTag"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/playerOneTagLabel"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/playerTwoTagLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/playerOneTag"
+        android:layout_marginTop="10px"
+        android:text="@string/playerTwoTagLabel" />
+
+    <EditText
+        android:id="@+id/playerTwoTag"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/playerTwoTagLabel"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/newGame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/newGameButton"
+        android:textSize="30sp" />
 </RelativeLayout>

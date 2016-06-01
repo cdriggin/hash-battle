@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.graphics.drawable.shapes.RectShape;
 import android.util.AttributeSet;
 import android.view.View;
@@ -16,14 +15,19 @@ public class HealthBar extends View {
     private ShapeDrawable mDrawable;
     private int totalHeight;
     private int totalWidth;
+    private int currentHealth;
+    private Battle battle;
+    private boolean created;
 
     public HealthBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        initializeHealth();
     }
 
-    public void initializeHealth() {
+    public void initializeHealth(Battle battle) {
+        this.battle = battle;
+        currentHealth = 100;
         mDrawable = new ShapeDrawable(new RectShape());
+        created = true;
         mDrawable.getPaint().setColor(Color.GREEN);
 
         totalHeight = this.getHeight();
@@ -34,22 +38,38 @@ public class HealthBar extends View {
 
     public HealthBar(Context context) {
         super(context);
-        initializeHealth();
     }
 
     public HealthBar(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initializeHealth();
     }
 
-    public void setHealth(double percentHealth) {
-        //Change health....
+    public void takeHit() {
+        currentHealth--;
 
+        if (isDepleted())
+            battle.stopHitting();
+
+        if (currentHealth < 50)
+            mDrawable.getPaint().setColor(Color.YELLOW);
+
+        if (currentHealth < 15)
+            mDrawable.getPaint().setColor(Color.RED);
+
+
+        int healthBarTop = totalHeight - (currentHealth * totalHeight / 100);
+        mDrawable.setBounds(0, healthBarTop, totalWidth, totalHeight);
+        invalidate();
     }
 
 
 
     protected void onDraw(Canvas canvas) {
-        mDrawable.draw(canvas);
+        if (created)
+            mDrawable.draw(canvas);
+    }
+
+    public boolean isDepleted() {
+        return currentHealth <= 0;
     }
 }

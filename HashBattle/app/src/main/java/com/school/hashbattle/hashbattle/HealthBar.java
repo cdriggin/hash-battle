@@ -23,10 +23,10 @@ public class HealthBar extends View {
         super(context, attrs, defStyle);
     }
 
-    public void initializeHealth(Battle battle) {
+    public void initialize(Battle battle) {
         this.battle = battle;
         currentHealth = 100;
-        mDrawable = new ShapeDrawable(new RectShape());
+        mDrawable = mDrawable == null ? new ShapeDrawable(new RectShape()) : mDrawable;
         created = true;
         mDrawable.getPaint().setColor(Color.GREEN);
 
@@ -48,7 +48,7 @@ public class HealthBar extends View {
         currentHealth--;
 
         if (isDepleted())
-            battle.stopHitting();
+            battle.stopBattle();
 
         if (currentHealth < 50)
             mDrawable.getPaint().setColor(Color.YELLOW);
@@ -59,7 +59,7 @@ public class HealthBar extends View {
 
         int healthBarTop = totalHeight - (currentHealth * totalHeight / 100);
         mDrawable.setBounds(0, healthBarTop, totalWidth, totalHeight);
-        invalidate();
+        this.postInvalidate();
     }
 
 

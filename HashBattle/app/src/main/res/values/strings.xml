@@ -4,7 +4,7 @@
     <string name="playerOneTagLabel">First HashTag</string>
     <string name="playerTwoTagLabel">Second HashTag</string>
     <string name="summaryText">What should fight?</string>
-
+    <string name="validation_regex">^([a-zA-Z0-9])*$</string>
     <string name="title_activity_battle">Battle</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>

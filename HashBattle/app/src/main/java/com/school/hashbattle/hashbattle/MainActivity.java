@@ -3,6 +3,7 @@ package com.school.hashbattle.hashbattle;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 
@@ -42,16 +43,19 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void submitBattleStart(View view) {
+        String playerOneHashTag = mPlayerOneTag.getText().toString();
+        String playerTwoHashTag = mPlayerTwoTag.getText().toString();
+
         /* Fire Validation by changing the text to what it currently is */
-        mPlayerOneTag.setText(mPlayerOneTag.getText());
-        mPlayerTwoTag.setText(mPlayerTwoTag.getText());
+        mPlayerOneTag.setText(playerOneHashTag);
+        mPlayerTwoTag.setText(playerTwoHashTag);
 
         /* Check Validation */
         if (mPlayerOneTag.getError() == null && mPlayerTwoTag.getError() == null) {
             //Send the values over to the next page
             Intent intent = new Intent(this, Battle.class);
-            intent.putExtra("PLAYER_ONE_HASHTAG", mPlayerOneTag.getText());
-            intent.putExtra("PLAYER_TWO_HASHTAG", mPlayerTwoTag.getText());
+            intent.putExtra("PLAYER_ONE_HASHTAG", playerOneHashTag);
+            intent.putExtra("PLAYER_TWO_HASHTAG", playerTwoHashTag);
             startActivity(intent);
         }
     }

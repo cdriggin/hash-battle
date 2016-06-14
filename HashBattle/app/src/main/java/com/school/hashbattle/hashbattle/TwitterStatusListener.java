@@ -27,10 +27,10 @@ public class TwitterStatusListener implements StatusListener{
     private void initializeTwitterListener(String hashTag) {
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
-                .setOAuthConsumerKey("f4syXdfKQi1TFcfWdCsmeIv0O")
-                .setOAuthConsumerSecret("WekufwuxeJK00X5d5j1ma7fshIgsfPMm9mZVkZYcUcBHvDxz26")
-                .setOAuthAccessToken("94453551-obtIbPZONe0arqnkSygJZvZl4QCN1pLrb5SNOWB37")
-                .setOAuthAccessTokenSecret("dxUgCNLw4vS8CYMqNUeTUxmnfs8YMM3iKGfZZ6H4dkHJO");
+                .setOAuthConsumerKey("5EHdC7mTApXrx8cb61hcKsOWc")
+                .setOAuthConsumerSecret("JuR4WCdh7sfYInZDOsSYA5Dnkfn5IH7oRdW0P1lD6BTkxaGiKG")
+                .setOAuthAccessToken("94453551-YG4BZdJhWKWOHVRc0z2GMby1zuo04ACccskPqv1ia")
+                .setOAuthAccessTokenSecret("jM6NrPF040SYZ22m40aUwdbTDFFisEipK8eo8Y6SKxiof");
 
         TwitterStreamFactory twitterStreamFactory = new TwitterStreamFactory(cb.build());
 

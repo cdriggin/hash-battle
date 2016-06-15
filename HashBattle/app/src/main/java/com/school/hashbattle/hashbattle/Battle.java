@@ -12,7 +12,7 @@ public class Battle extends AppCompatActivity {
     private String leftHash;
     private String rightHash;
 
-    TwitterStatusListener twitterListener;
+    private static TwitterStatusListener twitterListener;
     private TextView textBox;
     private TextView leftHashLabel;
     private TextView rightHashLabel;
@@ -37,28 +37,38 @@ public class Battle extends AppCompatActivity {
         rightHashLabel.setText(rightHash);
     }
 
-
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        twitterListener = new TwitterStatusListener(leftHealth, rightHealth, leftHash, rightHash);
+        if (twitterListener == null)
+            twitterListener = new TwitterStatusListener(leftHealth, rightHealth, leftHash, rightHash);
+        else
+            twitterListener.reinitialize(leftHealth, rightHealth, leftHash, rightHash);
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
         leftHealth.initialize(this);
         rightHealth.initialize(this);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        twitterListener.stop();
+    }
+
 
     public void stopBattle() {
-        final String victoryText = leftHealth.isDepleted() ? leftHash + "\nwins!" : rightHash + "\nwins!";
+        final String victoryText = rightHealth.isDepleted() ? leftHash + "\nwins!" : rightHash + "\nwins!";
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 textBox.setText(victoryText);
+                twitterListener.stop();
             }
         });
-        twitterListener.stop();
+
     }
 }

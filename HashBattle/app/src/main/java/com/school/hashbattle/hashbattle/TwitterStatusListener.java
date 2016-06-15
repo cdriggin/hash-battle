@@ -1,8 +1,5 @@
 package com.school.hashbattle.hashbattle;
 
-import android.os.AsyncTask;
-import android.util.Log;
-
 import twitter4j.FilterQuery;
 import twitter4j.HashtagEntity;
 import twitter4j.StallWarning;
@@ -24,24 +21,32 @@ public class TwitterStatusListener implements StatusListener {
     private String hashTagTwo;
 
     public TwitterStatusListener(HealthBar healthBarOne, HealthBar healthBarTwo, String hashTagOne, String hashTagTwo) {
+        saveMembers(healthBarOne, healthBarTwo, hashTagOne, hashTagTwo);
+        stream = buildStream();
+        startListening(hashTagOne, hashTagTwo);
+    }
+
+    private void saveMembers(HealthBar healthBarOne, HealthBar healthBarTwo, String hashTagOne, String hashTagTwo) {
         this.healthBarOne = healthBarOne;
         this.healthBarTwo = healthBarTwo;
         this.hashTagOne = hashTagOne;
         this.hashTagTwo = hashTagTwo;
-        initializeTwitterListener(hashTagOne, hashTagTwo);
     }
 
-    private void initializeTwitterListener(String hashTagOne, String hashTagTwo) {
+    private TwitterStream buildStream() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
-                .setOAuthConsumerKey("")
-                .setOAuthConsumerSecret("")
-                .setOAuthAccessToken("")
-                .setOAuthAccessTokenSecret("");
+                .setOAuthConsumerKey("wurmcknqhGNfHE138XvwlWmzx")
+                .setOAuthConsumerSecret("9PbFVysxaSmC8nogT8pS4sjVJsLiHHRHu0XGyT7ZquilAeYadr")
+                .setOAuthAccessToken("94453551-ymfrwAy1EU1FB8rxZWYAXGiLMQVhQbQh2KJfiB309")
+                .setOAuthAccessTokenSecret("5nrKCgSl55E6edoKvUSz8fxyzJq5rJTC1dA7rdJRSRx7D");
 
         TwitterStreamFactory twitterStreamFactory = new TwitterStreamFactory(cb.build());
 
-        stream = twitterStreamFactory.getInstance();
+        return twitterStreamFactory.getInstance();
+    }
+
+    private void startListening(String hashTagOne, String hashTagTwo) {
         stream.addListener(this);
         String[] trackArray = new String[]{
                 hashTagOne,
@@ -50,14 +55,20 @@ public class TwitterStatusListener implements StatusListener {
         stream.filter(new FilterQuery(trackArray));
     }
 
+
+    public void reinitialize(HealthBar healthBarOne, HealthBar healthBarTwo, String hashTagOne, String hashTagTwo) {
+        saveMembers(healthBarOne, healthBarTwo, hashTagOne, hashTagTwo);
+        startListening(hashTagOne, hashTagTwo);
+    }
+
     @Override
     public void onStatus(Status status) {
         HashtagEntity[] tags = status.getHashtagEntities();
         for (int i = 0; i < tags.length; i++) {
             if (tags[i].getText().toUpperCase().contains(hashTagOne.toUpperCase().replace("#", ""))) {
-                healthBarOne.takeHit();
-            } else {
                 healthBarTwo.takeHit();
+            } else {
+                healthBarOne.takeHit();
             }
         }
     }
@@ -89,7 +100,5 @@ public class TwitterStatusListener implements StatusListener {
 
     public void stop() {
         stream.clearListeners();
-        stream.cleanUp();
-        stream.shutdown();
     }
 }

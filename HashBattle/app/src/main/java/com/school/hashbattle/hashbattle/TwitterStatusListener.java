@@ -90,6 +90,6 @@ public class TwitterStatusListener implements StatusListener {
     public void stop() {
         stream.clearListeners();
         stream.cleanUp();
-       // stream.shutdown();
+        stream.shutdown();
     }
 }

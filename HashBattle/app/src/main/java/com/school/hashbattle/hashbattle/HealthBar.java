@@ -45,21 +45,23 @@ public class HealthBar extends View {
     }
 
     public void takeHit() {
-        currentHealth--;
-
-        if (isDepleted())
+        if (isDepleted()) {
             battle.stopBattle();
+        } else {
 
-        if (currentHealth < 50)
-            mDrawable.getPaint().setColor(Color.YELLOW);
+            currentHealth--;
 
-        if (currentHealth < 15)
-            mDrawable.getPaint().setColor(Color.RED);
+            if (currentHealth < 50)
+                mDrawable.getPaint().setColor(Color.YELLOW);
+
+            if (currentHealth < 15)
+                mDrawable.getPaint().setColor(Color.RED);
 
 
-        int healthBarTop = totalHeight - (currentHealth * totalHeight / 100);
-        mDrawable.setBounds(0, healthBarTop, totalWidth, totalHeight);
-        this.postInvalidate();
+            int healthBarTop = totalHeight - (currentHealth * totalHeight / 100);
+            mDrawable.setBounds(0, healthBarTop, totalWidth, totalHeight);
+            this.postInvalidate();
+        }
     }
 
 
